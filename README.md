@@ -2,6 +2,8 @@
 
 Khôi phục giao diện đăng ký/đăng nhập từ PreOnic gốc. Các module nghiệp vụ khác vẫn là file khung rỗng.
 
+Trang chủ tại `/` dùng giao diện PreOnic gốc, gồm banner, khu mùa vụ, nội dung giới thiệu và footer. Menu dẫn đến `/products`, `/solutions`, `/contact` và các trang `/info/:slug`. Danh sách sản phẩm đang hiển thị trạng thái trống, chưa kết nối API sản phẩm. Biểu mẫu liên hệ chưa gửi dữ liệu. Dashboard nghiệp vụ chưa triển khai.
+
 ## Chạy backend
 
 Yêu cầu Node.js 20+ và MongoDB đang chạy (local hoặc Atlas).
