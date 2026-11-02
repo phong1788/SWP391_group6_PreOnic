@@ -8,8 +8,24 @@ import Register from './Component/Register/Register';
 import ResetPassword from './Component/ResetPassword/ResetPassword';
 import VerifyEmail from './Component/VerifyEmail/VerifyEmail';
 import BrandLogo from './Component/BrandLogo/BrandLogo';
+import Navbar from './Component/Navbar/Navbar';
+import Hero from './Component/Hero/Hero';
+import Campaigns from './Component/Campaigns/Campaigns';
+import AgricultureBanner from './Component/AgricultureBanner/AgricultureBanner';
+import Footer from './Component/Footer/Footer';
+import Solutions from './Component/Solutions/Solutions';
+import Contact from './Component/Contact/Contact';
+import InfoPage from './Component/InfoPage/InfoPage';
 import './index.css';
 import './App.css';
+
+function HomePage() {
+  return <><Navbar /><Hero /><div className="home-mid"><Campaigns /></div><AgricultureBanner /><Footer /></>;
+}
+
+function ProductsPage() {
+  return <><Navbar /><main style={{ paddingTop: 110, minHeight: '65vh' }}><Campaigns isCatalog /></main><Footer /></>;
+}
 
 function Account() {
   const { user, logout } = useAuth();
@@ -30,12 +46,21 @@ export default function App() {
   return <AuthProvider><ToastProvider><BrowserRouter>
     <ToastContainer />
     <Routes>
-      <Route path="/" element={<Navigate to="/auth" replace />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/products" element={<ProductsPage />} />
+      <Route path="/solutions" element={<Solutions />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/info/:slug" element={<InfoPage />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/register" element={<Register />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/verify-email" element={<VerifyEmail />} />
-      {['/farmer', '/enterprise', '/admin', '/profile'].map(path => <Route key={path} path={path} element={<ProtectedRoute><Account /></ProtectedRoute>} />)}
+      <Route path="/farmer" element={<ProtectedRoute allowedRoles={['farmer']}><HomePage /></ProtectedRoute>} />
+      <Route path="/farmer-home" element={<ProtectedRoute allowedRoles={['farmer']}><HomePage /></ProtectedRoute>} />
+      <Route path="/enterprise" element={<ProtectedRoute allowedRoles={['enterprise']}><HomePage /></ProtectedRoute>} />
+      <Route path="/enterprise-home" element={<ProtectedRoute allowedRoles={['enterprise']}><HomePage /></ProtectedRoute>} />
+      <Route path="/admin" element={<ProtectedRoute allowedRoles={['admin']}><HomePage /></ProtectedRoute>} />
+      <Route path="/profile" element={<ProtectedRoute><Account /></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/auth" replace />} />
     </Routes>
   </BrowserRouter></ToastProvider></AuthProvider>;
